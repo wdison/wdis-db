@@ -1,6 +1,6 @@
 {
   "name": "@wdis/db",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "@wdis/db",
   "main": "./index.js",
   "module": "./index.esm",
@@ -19,9 +19,19 @@
   },
   "keywords": [
     "wdis",
-    "db"
+    "db",
+    "sql",
+    "query",
+    "sqlite3",
+    "builder",
+    "querybuilder",
+    "build",
+    "database"
   ],
-  "author": "Wdison",
+  "author": {
+    "name": "Wdison",
+    "web": "https://github.com/wdison"
+  },
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/wdison/wdis-db/issues"
@@ -41,13 +51,18 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "sqlite3": "^5.1.7"
   },
   "dependencies": {
-    "@wdis/event": "^1.0.12",
-    "sqlite3": "^5.1.7"
+    "@wdis/event": "^1.0.12"
   },
   "peerDependencies": {
     "@wdis/event": "^1.0.12"
+  },
+  "peerDependenciesMeta": {
+    "sqlite3": {
+      "optional": true
+    }
   }
 }

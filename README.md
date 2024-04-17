@@ -1,4 +1,28 @@
-# wdis-db
+# wdis-db [![npm version](https://img.shields.io/npm/v/@wdis/db.svg?style=flat-square)](https://www.npmjs.com/package/@wdis/db) [![NPM Downloads](https://img.shields.io/npm/dm/@wdis/db.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@wdis/db&from=2023-12-01)
+
+
+## Supported features
+
+| DB\Feature | Select | Insert | Delete | Update | Create | Drop | Meta Model |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| SQlite | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| MySql | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
+| MariaDB | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
+| PostegreSql | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
+| Oracle | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+| MS SQL | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+| CSV | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+| JSON | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+| XML | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+| Property | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ⚠️ |
+
+
+## Install
+
+    npm install @wdis/db
+Or
+
+    yarn install @wdis/db
 
 ### Example
 ```js
@@ -17,21 +41,10 @@ let promiseList = wdisDb
     .select('id','name','email')
     .list();
 
-promiseList.then((userLst:any/*OR Type User*/)=>{
+promiseList.then((userLst:any[]/*OR Type User[]*/)=>{
     console.log(JSON.stringify(userLst));
 });
 ```
-
-## Supported features
-
-| DB/Feature | Select | Insert | Delete | Update | Create | Drop | Meta Model |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| SQlite | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| MySql | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
-| MariaDB | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
-| PostegreSql | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
-| Oracle | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
-| MS SQL | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 | 🔜 |
 
 
 ## Contributing
