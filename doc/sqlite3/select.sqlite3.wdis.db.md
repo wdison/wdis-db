@@ -1,6 +1,8 @@
 # @wdis/db - Easiest and fast query builder
 
 ## Select
+1. [Simple example](#simple-example)
+1. [Select With Simple Where Clause](#select-with-simple-where-clause)
 
 ### Simple example
 ```js
