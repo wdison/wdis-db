@@ -46,6 +46,8 @@ promiseList.then((userLst:any[]/*OR Type User[]*/)=>{
 });
 ```
 
+## Other Examples
+- [Select Examples](doc/sqlite3/select.sqlite3.wdis.db.md)
 
 ## Contributing
 
