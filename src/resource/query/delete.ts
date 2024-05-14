@@ -33,6 +33,8 @@ export class Delete extends Query implements Runner {
                 for (let i = 0; i < criteria.length; i++) {
                     this.getWhere().criteria(criteria[i], criteria[++i]);
                 }
+            } else {
+                throw new Error('Criteria where invalid!');
             }
         } else if (criteria.length == 1) {
             let keys = Object.keys(criteria[0]);
@@ -40,8 +42,6 @@ export class Delete extends Query implements Runner {
                 keys.forEach((key: string) => {
                     this.getWhere().criteria(key, criteria[0][key]);
                 })
-            } else {
-                throw new Error('Criteria where invalid!');
             }
         } else {
             throw new Error('Criteria where invalid!');

@@ -15,10 +15,12 @@ export class SqlUpdate extends Update {
         sqlQuery+=columns.map(col=>{
             const valToSet = this.objModel[col];
             if(valToSet=='NULL'){
-                return '"'+col+'" = NULL';
+                // return '"'+col+'" = NULL';
+                return col+' = NULL';
             }
             this.addValueToQuery(valToSet); 
-            return '"'+col+'" = ?';
+            // return '"'+col+'" = ?';
+            return col+' = ?';
         }).join(', ');
         
         const sqlWhere = super.getWhere().render();

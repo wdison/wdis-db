@@ -1,4 +1,5 @@
 import { ConfResource } from "../conf.resource";
+import { MySqlResource } from "../impl/mysql/mysql.resource";
 import { Resource } from "./resource";
 import { Sqlite3Resource } from "./sqlite3/sqlite3.resource";
 
@@ -26,5 +27,6 @@ export class ResourceFactory {
 
 if(!ResourceFactory.prepared) {
     ResourceFactory.addResource(new Sqlite3Resource());
+    ResourceFactory.addResource(new MySqlResource());
     ResourceFactory.prepared = true;
 }

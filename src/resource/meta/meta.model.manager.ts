@@ -1,6 +1,8 @@
-import { FieldModel, FieldTypeEnum, MetaModel } from "../meta.model";
-import { ModelParse } from "./meta/model.parse";
-import { Resource } from "./resource";
+import { FieldModel, FieldTypeEnum, MetaModel } from "../../meta.model";
+import { Resource } from "../resource";
+import { META_MODEL_REPO } from "../resource.constants";
+import { MetaModelRepo } from "./meta.model.repo";
+import { ModelParse } from "./model.parse";
 
 /*Unsupported("typeUnsupported")*/
 
@@ -43,7 +45,7 @@ export class MetaModelManager {
             }
             fieldsModel.push(new FieldModel(fieldName, fieldType, nullable, interfaces));
         })
-        const metaModel = new MetaModel(modelName, model, fieldsModel, fieldsValue);
+        const metaModel = new MetaModel(modelName, fieldsModel);
         this.setMetaModel(modelName, metaModel);
         return metaModel;
     }
@@ -107,5 +109,10 @@ export class MetaModelManager {
         const parsedMetaModel = new ModelParse().parse(userTmpPrisma);
         this.setMetaModel(parsedMetaModel.modelName, parsedMetaModel);
         return parsedMetaModel;
+    }
+
+    async fromResource(modelName: string): Promise<MetaModel|undefined> {
+        const metaModelRepo = this.resource.get(META_MODEL_REPO)() as MetaModelRepo;
+        return metaModelRepo.metaModel(modelName);
     }
 }

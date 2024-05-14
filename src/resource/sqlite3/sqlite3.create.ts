@@ -59,7 +59,8 @@ export class Sqlite3Create extends SqlCreate {
     }
 
     async run(): Promise<any> {
-        return new Promise((accept, reject) => {
+        return new Promise(async (accept, reject) => {
+            await this.resource.intercept(('wdisdb:'+this.metaModel.modelName+':create'), {resource: this.resource, model: this.metaModel, modelName:this.metaModel.modelName, type:'create'});
             let sqlRendered = this.render();
             let database = (this.resource.get('repo')()) as Database;
             database.run(sqlRendered, (err: any, res: any) => {

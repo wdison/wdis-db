@@ -1,9 +1,8 @@
-import { Database } from "sqlite3";
 import { FieldTypeEnum } from "../../meta.model";
-import { SqlDelete } from "../query/impl/sql.delete";
-import { Resource } from "../resource";
+import { SqlDelete } from "../../resource/query/impl/sql.delete";
+import { Resource } from "../../resource/resource";
 
-export class Sqlite3Delete extends SqlDelete {
+export class MySqlDelete extends SqlDelete {
     constructor(resource: Resource) {
         super(resource);
     }
@@ -12,8 +11,8 @@ export class Sqlite3Delete extends SqlDelete {
         return new Promise(async (accept, reject) => {
             await this.resource.intercept(('wdisdb:'+this.modelName+':delete'), {resource: this.resource, model: undefined, modelName:this.modelName, type:'delete'});
             let sqlRendered = this.render();
-            let database = (this.resource.get('repo')()) as Database;
-            database.run(sqlRendered, this.valuesToQuery, (err: any, res: any) => {
+            let database = (this.resource.get('repo')()) as any;
+            database.query(sqlRendered, this.valuesToQuery, (err:any, res:any, fields:any) => {
                 if (err) {
                     // console.log('Erro ao criar a tabela!');
                     reject(err);

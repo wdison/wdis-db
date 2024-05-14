@@ -1,7 +1,8 @@
 import { WdisEvent } from "@wdis/event";
 import { ConfResource } from "../conf.resource";
 import { MetaModel } from "../meta.model";
-import { MetaModelManager } from "./meta.model.manager";
+import { MetaModelManager } from "./meta/meta.model.manager";
+import { MetaModelRepo } from "./meta/meta.model.repo";
 import { Create } from "./query/create";
 import { Delete } from "./query/delete";
 import { Drop } from "./query/drop";
@@ -9,13 +10,14 @@ import { Insert } from "./query/insert";
 import { Native } from "./query/native";
 import { Select } from "./query/select";
 import { Update } from "./query/update";
-import { META_MODEL_MANAGER, QRY_DROP } from "./resource.constants";
+import { META_MODEL_MANAGER, META_MODEL_REPO, QRY_DROP } from "./resource.constants";
 
 export class Resource extends WdisEvent {
     constructor(){
         super();
         let _self = this;
         this.set(META_MODEL_MANAGER, ()=>new MetaModelManager(_self));
+        this.set(META_MODEL_REPO, ()=>new MetaModelRepo(_self));
     }
 
     protected resourceName: string='';
@@ -77,5 +79,22 @@ export class Resource extends WdisEvent {
         }
         const create = this.get(QRY_DROP)(metaModel) as Drop;
         return create;
+    }
+
+    meta(): MetaModelManager {
+        return this.get(META_MODEL_MANAGER)() as MetaModelManager;
+    }
+
+    // eventName:any, onEventFnc:any
+    public on(keyEvent:any, callback: any){
+        keyEvent = (keyEvent||'').toLowerCase();
+        if(keyEvent.indexOf('wdisdb:') != 0) {throw 'Evento desconhecido '+keyEvent;}
+        super.on(keyEvent, callback);
+        return this;
+    }
+
+    async intercept(keyEvent:string, ...param:any){
+        keyEvent = (keyEvent||'').toLowerCase();
+        await super.intercept(keyEvent, ...param);
     }
 }

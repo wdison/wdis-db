@@ -31,11 +31,14 @@ export class SqlWhere extends Where{
                 } else if (op == 'in') {
                     criterias.push(keyPrinc + " in (?)")
                 } else if (op == 'lk') {
-                    criterias.push(keyPrinc + " like '%'||?||'%'")
+                    criterias.push(keyPrinc + " like ?")
+                    value = '%'+value+'%';
                 } else if (op == 'sw' || op == 'iw') {
-                    criterias.push(keyPrinc + " like ?||'%'")
+                    criterias.push(keyPrinc + " like ?")
+                    value = value+'%';
                 } else if (op == 'ew') {
-                    criterias.push(keyPrinc + " like '%'||?")
+                    criterias.push(keyPrinc + " like ?")
+                    value = '%'+value;
                 } else if (op == 'gt') {
                     criterias.push(keyPrinc + " > ?")
                 } else if (op == 'ge') {

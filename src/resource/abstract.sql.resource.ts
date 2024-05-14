@@ -1,5 +1,5 @@
 import { ConfResource } from "../conf.resource";
-import { Insert, QRY_UPDATE, SqlWhere, Update } from "../index";
+import { Insert, Native, QRY_INSERT, QRY_NATIVE, QRY_SELECT, QRY_UPDATE, SqlWhere, Update } from "../index";
 import { Select } from "./query/select";
 import { Resource } from "./resource";
 
@@ -18,7 +18,7 @@ export class AbstractSqlResource extends Resource {
     }
 
     public select(...column: any): Select {
-        let select = (this.get('select')()) as Select;
+        let select = (this.get(QRY_SELECT)()) as Select;
         select.model(this.modelName, this.modelAlias);
         if(column && column.length){
             column.forEach((col:string)=>{select.column(col)});
@@ -27,7 +27,7 @@ export class AbstractSqlResource extends Resource {
     }
     
     public insert(...column: string[]|{[key:string]:any}[]): Insert {
-        let insert = (this.get('insert')()) as Insert;
+        let insert = (this.get(QRY_INSERT)()) as Insert;
         insert.model(this.modelName, this.modelAlias);
         insert.column(...column);
         return insert;
@@ -38,5 +38,10 @@ export class AbstractSqlResource extends Resource {
         update.model(this.modelName, this.modelAlias);
         update.setObjModel(model);
         return update;
+    }
+
+    public native(script: any): Native {
+        let native = (this.get(QRY_NATIVE)(script)) as Native;
+        return native;
     }
 }

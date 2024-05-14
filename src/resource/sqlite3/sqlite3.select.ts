@@ -23,7 +23,7 @@ export class Sqlite3Select extends SqlSelect{
                 if (err) {
                     reject(`Falha ao selecionar registros de ${_self.modelName}. ` + err.message);
                 } else {
-                    _self.resource.intercept(('wdisdb:'+_self.modelName+':select:list'), {resource: _self.resource, model: rows, modelName:_self.modelName, type:'list'});
+                    _self.resource.intercept(('wdisdb:'+_self.modelName+':select'), {resource: _self.resource, model: rows, modelName:_self.modelName, type:'select'});
                     accept(rows);
                 }
             });

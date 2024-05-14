@@ -30,7 +30,18 @@ export class ModelParse {
             }
         });
 
-        let metaModel = new MetaModel(modelName, null, fields);
+        let schema = '';
+        modelInterfaces.forEach((intfc:string)=>{
+            if(intfc.startsWith('@@schema')){
+                schema = intfc.replace('@@schema("','').replace('")','');
+                // console.log('###########################################################################');
+                // console.log('Schema: ', schema, ' from ', intfc);
+                // console.log('###########################################################################');
+                
+            }
+        });
+
+        let metaModel = new MetaModel(modelName, fields, schema);
         metaModel.type = modelType;
         metaModel.interfaces = modelInterfaces;
         if (!Object.keys(ModelTypeEnum).includes(modelType)) throw new Error('Unknown Model Type!');

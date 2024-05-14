@@ -10,7 +10,8 @@ export class SqlInsert extends Insert {
         this.valuesToQuery = [];
         let sqlQuery = 'Insert Into ';
         sqlQuery+=this.modelName;
-        sqlQuery+=('('+this.columns.map(col=>'"'+col+'"').join(', ')+')');
+        // sqlQuery+=('('+this.columns.map(col=>'"'+col+'"').join(', ')+')');
+        sqlQuery+=('('+this.columns.map(col=>col).join(', ')+')');
         
         if(this.modeInsert == 'subquery'){
             sqlQuery+=this._subSelect?.render();
