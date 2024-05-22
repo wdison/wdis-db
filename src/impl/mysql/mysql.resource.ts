@@ -3,10 +3,13 @@ var mysql = require('mysql2');
 import { ConfResource } from "../../conf.resource";
 import { MetaModel } from "../../meta.model";
 import { AbstractSqlResource } from '../../resource/abstract.sql.resource';
-import { QRY_DELETE, QRY_DROP, QRY_INSERT, QRY_SELECT, QRY_UPDATE, REPO } from '../../resource/resource.constants';
+import { META_MODEL_REPO, QRY_CREATE, QRY_DELETE, QRY_DROP, QRY_INSERT, QRY_NATIVE, QRY_SELECT, QRY_UPDATE, REPO } from '../../resource/resource.constants';
+import { MySqlCreate } from "./mysql.create";
 import { MySqlDelete } from "./mysql.delete";
 import { MySqlDrop } from "./mysql.drop";
 import { MySqlInsert } from "./mysql.insert";
+import { MySqlMetaModelRepo } from "./mysql.meta.model.repo";
+import { MySqlNative } from "./mysql.native";
 import { MySqlSelect } from "./mysql.select";
 import { MySqlUpdate } from "./mysql.update";
 
@@ -20,7 +23,10 @@ export class MySqlResource extends AbstractSqlResource {
         this.set(QRY_INSERT, () => new MySqlInsert(_self));
         this.set(QRY_DELETE, () => new MySqlDelete(_self));
         this.set(QRY_UPDATE, () => new MySqlUpdate(_self));
-        this.set(QRY_DROP, (metaModel:MetaModel) => new MySqlDrop(_self, metaModel));
+        this.set(QRY_DROP,          (metaModel:MetaModel)   => new MySqlDrop            (_self, metaModel));
+        this.set(QRY_CREATE,        (metaModel:MetaModel)   => new MySqlCreate          (_self, metaModel));
+        this.set(QRY_NATIVE,        (nativeQry:string   )   => new MySqlNative          (_self, nativeQry));
+        this.set(META_MODEL_REPO,   (                   )   => new MySqlMetaModelRepo   (_self           ));
     }
 
     public config(conf: ConfResource) {

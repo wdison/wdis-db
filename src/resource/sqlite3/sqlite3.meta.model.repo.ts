@@ -104,15 +104,15 @@ export class Sqlite3MetaModelRepo extends MetaModelRepo {
         let fksObj: { [key: string]: FKey } = {};
 
         for (let item of result) {
-            let fk = fksObj[item.table];
+            let fkName = ('FK' + (item.id ? item.id + 1 : '') + modelName + item.table).toUpperCase();
+            let fk = fksObj[fkName];
             if (!fk) {
                 // ('FK' + (item.id_fk ? item.id_fk + 1 : '') + item.table_name + item.table_parent_name)
-                let fkName = ('FK' + (item.id ? item.id + 1 : '') + modelName + item.table).toUpperCase();
                 fk = new FKey(fkName, modelName, [], schema);
                 fk.refModelName = item.table;
                 fk.updateRule = this.parseOnRemoveOrOnUpdate(item.on_update);
                 fk.deleteRule = this.parseOnRemoveOrOnUpdate(item.on_delete);
-                fksObj[item.table] = fk;
+                fksObj[fkName] = fk;
             }
             fk.columns.push(item.from);
             fk.refColumns.push(item.to);

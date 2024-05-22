@@ -1,6 +1,6 @@
 {
   "name": "@wdis/db",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "@wdis/db",
   "main": "./index.js",
   "module": "./index.esm",
@@ -24,6 +24,7 @@
     "sql",
     "query",
     "sqlite3",
+    "mysql",
     "builder",
     "querybuilder",
     "build",
