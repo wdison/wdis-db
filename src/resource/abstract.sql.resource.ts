@@ -2,12 +2,13 @@ import { ConfResource } from "../conf.resource";
 import { Insert, Native, QRY_INSERT, QRY_NATIVE, QRY_SELECT, QRY_UPDATE, SqlWhere, Update } from "../index";
 import { Select } from "./query/select";
 import { Resource } from "./resource";
+import { QRY_WHERE } from "./resource.constants";
 
 export class AbstractSqlResource extends Resource {
     constructor(){
         super();
         let _self = this;
-        this.set('where', ()=>new SqlWhere(_self));
+        this.set(QRY_WHERE, ()=>new SqlWhere(_self));
     }
 
     sqlFunctions: { [key: string]: string } = {};

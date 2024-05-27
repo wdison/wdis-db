@@ -13,12 +13,17 @@ export class MySqlDrop extends SqlDrop {
             await this.resource.intercept(('wdisdb:'+this.metaModel.modelName+':drop'), {resource: this.resource, model: this.metaModel, modelName:this.metaModel.modelName, type:'drop'});
             let sqlRendered = this.render();
             let database = (this.resource.get(REPO)()) as any;
+            console.log('values: ', this.valuesToQuery);
+            
             database.query(sqlRendered, this.valuesToQuery, (err: any, res: any, fields:any) => {
                 if (err) {
-                    // console.log('Erro ao criar a tabela!');
+                    console.log('Erro no drop da tabela!');
                     reject(err);
                 } else {
-                    // console.log('Criou a tabela com sucesso!', res);
+                    if(typeof res.insertId == 'bigint'){//Fix for mariadb
+                        res.insertId = parseInt(res.insertId)
+                    }
+                    console.log('Dropou a tabela com sucesso!', res);
                     accept(res);
                 }
             });

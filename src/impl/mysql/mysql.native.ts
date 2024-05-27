@@ -11,6 +11,9 @@ export class MySqlNative extends Native{
                 if (err) {
                     reject(err);
                 } else {
+                    if(res && typeof res.insertId == 'bigint'){//Fix for mariadb
+                        res.insertId = parseInt(res.insertId)
+                    }
                     accept(res);
                 }
             });

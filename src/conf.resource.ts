@@ -7,6 +7,7 @@ export declare class ConfResource {
         host?: string,
         port?: string,
         database?: string,
-        connection?:any
+        connection?:any,
+        timeout?:number
     };
 }

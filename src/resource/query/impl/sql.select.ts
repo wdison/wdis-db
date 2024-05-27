@@ -6,6 +6,13 @@ export class SqlSelect extends Select {
         super(resource);
     }
 
+    async unique(): Promise<any> {
+        let listTmp = await this.list();
+        if(!listTmp||listTmp.length==0) throw new Error('Empty!')
+        else if(listTmp.length>1) throw new Error('Not Unique!');
+        else return listTmp[0];
+    }
+
     render(): string {
         this.valuesToQuery = [];
         let sqlQuery = 'select ';

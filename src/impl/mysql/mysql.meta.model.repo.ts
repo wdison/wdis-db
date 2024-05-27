@@ -89,7 +89,7 @@ export class MySqlMetaModelRepo extends MetaModelRepo {
                     let valueDefault = item.dflt_value as string;
                     if ((valueDefault).startsWith("'")) valueDefault = valueDefault.substring(1);
                     if ((valueDefault).endsWith("'")) valueDefault = valueDefault.substring(0, valueDefault.length - 1);
-                    fieldModel.interfaces.push('@default("' + valueDefault + '"');
+                    fieldModel.interfaces.push('@default("' + valueDefault + '")');
                 }
             }
             fields.push(fieldModel);

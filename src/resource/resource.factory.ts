@@ -1,5 +1,7 @@
 import { ConfResource } from "../conf.resource";
+import { MariaDbResource } from "../impl/mariadb/mariadb.resource";
 import { MySqlResource } from "../impl/mysql/mysql.resource";
+import { PostgresResource } from "../impl/postgres/postgres.resource";
 import { Resource } from "./resource";
 import { Sqlite3Resource } from "./sqlite3/sqlite3.resource";
 
@@ -28,5 +30,7 @@ export class ResourceFactory {
 if(!ResourceFactory.prepared) {
     ResourceFactory.addResource(new Sqlite3Resource());
     ResourceFactory.addResource(new MySqlResource());
+    ResourceFactory.addResource(new MariaDbResource());
+    ResourceFactory.addResource(new PostgresResource());
     ResourceFactory.prepared = true;
 }
