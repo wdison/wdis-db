@@ -1,6 +1,6 @@
 {
   "name": "@wdis/db",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "@wdis/db",
   "main": "./index.js",
   "module": "./index.esm",
