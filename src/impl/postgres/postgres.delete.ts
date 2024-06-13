@@ -1,7 +1,7 @@
 import { SqlDelete } from "../../resource/query/impl/sql.delete";
 import { Resource } from "../../resource/resource";
 
-export class MySqlDelete extends SqlDelete {
+export class PostgresDelete extends SqlDelete {
     constructor(resource: Resource) {
         super(resource);
     }

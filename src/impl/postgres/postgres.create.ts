@@ -3,7 +3,7 @@ import { SqlCreate } from "../../resource/query/impl/sql.create";
 import { Resource } from "../../resource/resource";
 import { REPO } from "../../resource/resource.constants";
 
-export class MySqlCreate extends SqlCreate {
+export class PostgresCreate extends SqlCreate {
     constructor(resource: Resource, metaModel: MetaModel) {
         super(resource, metaModel);
     }
@@ -45,9 +45,9 @@ export class MySqlCreate extends SqlCreate {
                 result+='\tprimary key'
             }else if(interf.includes('@default')){
                 if(/^@default *\(increment *\( *\) *\)$/.test(interf)) {
-                    result+=' AUTO_INCREMENT'
+                    // result+=' AUTO_INCREMENT'//Postgres uses SERIAL type as auto increment
                 }else if(/^@default *\(now *\( *\) *\)$/.test(interf)){
-                    result+=' DEFAULT '+(type==FieldTypeEnum.DateTime?"(CURRENT_TIMESTAMP)":"(CURRENT_DATE)");
+                    result+=' DEFAULT '+(type==FieldTypeEnum.DateTime?"CURRENT_TIMESTAMP":"CURRENT_DATE");
                 }else if(/^@default *\(".*"\)$/.test(interf)){
                     let defaultStr = interf.replace(/.*"(.*)".*/, '$1');
                     result+=" DEFAULT '"+defaultStr+"'";
@@ -79,37 +79,47 @@ export class MySqlCreate extends SqlCreate {
         // console.log('type: '+type);
         // console.log('FieldTypeEnum.String: '+FieldTypeEnum.String);
         let result:string|undefined = undefined;
-        switch (type) {
-            case FieldTypeEnum.String.toString():
-                result = 'VARCHAR(300)'
-                break;
-            case FieldTypeEnum.Int.toString():
-                result = 'INT'
-                break;
-            case FieldTypeEnum.Long.toString():
-                result = 'BIGINT'
-                break;
-            case FieldTypeEnum.Float.toString():
-                result = 'FLOAT'
-                break;
-            case FieldTypeEnum.Double.toString():
-                result = 'DOUBLE'
-                break;
-            case FieldTypeEnum.Date.toString():
-                result = 'DATE'
-                break;
-            case FieldTypeEnum.DateTime.toString():
-                result = 'DATETIME'
-                break;
-            case FieldTypeEnum.Bool.toString():
-                result = 'BOOLEAN'
-                break;
-            case FieldTypeEnum.Bytes.toString():
-                result = 'BLOB'
-                break;
-            default:
-                result = 'VARCHAR(300)'
-                break;
+
+        for(let interf of field.interfaces){
+            if(interf.includes('@default')){
+                if(/^@default *\(increment *\( *\) *\)$/.test(interf)) {
+                    result='SERIAL';
+                }
+            }
+        }
+        if(!result){
+            switch (type) {
+                case FieldTypeEnum.String.toString():
+                    result = 'VARCHAR(300)'
+                    break;
+                case FieldTypeEnum.Int.toString():
+                    result = 'INT'
+                    break;
+                case FieldTypeEnum.Long.toString():
+                    result = 'BIGINT'
+                    break;
+                case FieldTypeEnum.Float.toString():
+                    result = 'FLOAT'
+                    break;
+                case FieldTypeEnum.Double.toString():
+                    result = 'DOUBLE'
+                    break;
+                case FieldTypeEnum.Date.toString():
+                    result = 'DATE'
+                    break;
+                case FieldTypeEnum.DateTime.toString():
+                    result = 'DATETIME'
+                    break;
+                case FieldTypeEnum.Bool.toString():
+                    result = 'BOOLEAN'
+                    break;
+                case FieldTypeEnum.Bytes.toString():
+                    result = 'BLOB'
+                    break;
+                default:
+                    result = 'VARCHAR(300)'
+                    break;
+            }
         }
         return result;
     }

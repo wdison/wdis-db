@@ -22,7 +22,7 @@ export class Sqlite3Create extends SqlCreate {
                 const fieldType = field.type.toLowerCase();
                 if(fieldsTypes.includes(fieldType)) {
                     sqlQuery += '\t';
-                    sqlQuery += '"'+field.name+'"\t'+this.parseType(fieldType);
+                    sqlQuery += '"'+field.name+'"\t'+this.parseType(field);
                     sqlQuery += this.parseInterfaces(field);
                     
                     if(idxField--){
@@ -75,10 +75,10 @@ export class Sqlite3Create extends SqlCreate {
         })
     }
     
-    parseType(type: string):string {
+    parseType(field: FieldModel):string {
+        let type = field.type.toLowerCase();
         // console.log('type: '+type);
         // console.log('FieldTypeEnum.String: '+FieldTypeEnum.String);
-        
         let result:string|undefined = undefined;
         switch (type) {
             case FieldTypeEnum.String.toString():

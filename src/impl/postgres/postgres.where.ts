@@ -8,8 +8,9 @@ export class PostgresWhere extends SqlWhere{
 
     render(): string {
         let superRendered = super.render();
-        let index = 1;
-        const result = superRendered.replace(/\?/g, () => `$${index++}`);
+        // let index = 1;
+        const result = superRendered
+            // .replace(/\?/g, () => `$${index++}`);
         return result;
     }
 }

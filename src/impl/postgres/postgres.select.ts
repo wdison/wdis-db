@@ -6,6 +6,14 @@ export class PostgresSelect extends SqlSelect{
     constructor(resource:Resource){
         super(resource);
     }
+
+    render(): string {
+        let superRendered = super.render();
+        let index = 1;
+        const result = superRendered
+            .replace(/\?/g, () => `$${index++}`);
+        return result;
+    }
     
     async list():Promise<any[]> {
         let _self = this;
