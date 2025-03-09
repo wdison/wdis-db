@@ -1,5 +1,11 @@
 # wdis-db [![npm version](https://img.shields.io/npm/v/@wdis/db.svg?style=flat-square)](https://www.npmjs.com/package/@wdis/db) [![NPM Downloads](https://img.shields.io/npm/dm/@wdis/db.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@wdis/db&from=2023-12-01)
 
+## Help this library and ideia
+
+> Please, this library needs help to document and implement other features, if possible, help us.
+
+> If you need to understand how it works: see the unit tests, as they are very well structured;
+
 
 ## Supported features
 
