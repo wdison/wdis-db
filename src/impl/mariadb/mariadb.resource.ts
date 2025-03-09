@@ -1,5 +1,4 @@
 // var mariadb = require('mariadb');
-var mariadb = require('mariadb/callback');
 
 import { ConfResource } from "../../conf.resource";
 import { MetaModel } from "../../meta.model";
@@ -29,9 +28,10 @@ export class MariaDbResource extends AbstractSqlResource {
         this.set(QRY_NATIVE,        (nativeQry:string   )   => new MySqlNative          (_self, nativeQry));
         this.set(META_MODEL_REPO,   (                   )   => new MySqlMetaModelRepo   (_self           ));
     }
-
+    
     public config(conf: ConfResource) {
         let _self = this;
+        var mariadb = require('mariadb/callback');
         super.config(conf);
         this.conf = conf;
         let repo:any;

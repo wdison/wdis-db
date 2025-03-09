@@ -1,4 +1,3 @@
-var mysql = require('mysql2');
 // import mysql from 'mysql2';
 import { ConfResource } from "../../conf.resource";
 import { MetaModel } from "../../meta.model";
@@ -28,8 +27,10 @@ export class MySqlResource extends AbstractSqlResource {
         this.set(QRY_NATIVE,        (nativeQry:string   )   => new MySqlNative          (_self, nativeQry));
         this.set(META_MODEL_REPO,   (                   )   => new MySqlMetaModelRepo   (_self           ));
     }
-
+    
     public config(conf: ConfResource) {
+        var mysql = require('mysql2');
+        
         super.config(conf);
         this.conf = conf;
         let repo = { query: () => { }, connect: (cb: any = undefined) => { }, threadId: undefined };

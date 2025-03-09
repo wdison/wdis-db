@@ -1,8 +1,3 @@
-// var mariadb = require('mariadb');
-var postgres = require("pg");
-
-let Client = postgres.Client;
-
 import { ConfResource } from "../../conf.resource";
 import { MetaModel } from "../../meta.model";
 import { AbstractSqlResource } from '../../resource/abstract.sql.resource';
@@ -33,9 +28,12 @@ export class PostgresResource extends AbstractSqlResource {
         this.set(QRY_NATIVE,        (nativeQry:string   )   => new PostgresNative          (_self, nativeQry));
         this.set(META_MODEL_REPO,   (                   )   => new PostgresMetaModelRepo   (_self           ));
     }
-
+    
     public config(conf: ConfResource) {
         let _self = this;
+        var postgres = require("pg");
+        let Client = postgres.Client;
+
         super.config(conf);
         this.conf = conf;
         let repo:any;
